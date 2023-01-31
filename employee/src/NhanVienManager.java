@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class NhanVienManager {
     public ArrayList<NhanVien> nhanViens;
@@ -36,7 +35,6 @@ public class NhanVienManager {
 
     public void nvLuongThap() {
         double luongNv;
-        System.out.println("nhân viên lương thấp FullTime:");
         for (NhanVien nv : nhanViens) {
             if (nv instanceof NhanVienFulltime) {
                 if (((NhanVienFulltime) nv).thucLinhFullTime() < trungBinhLuong()) {
@@ -68,4 +66,5 @@ public class NhanVienManager {
         Collections.sort(nhanVienFulltimes);
         System.out.println(nhanVienFulltimes);
     }
+
 }
