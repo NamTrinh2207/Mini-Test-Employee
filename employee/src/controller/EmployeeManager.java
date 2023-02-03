@@ -93,24 +93,13 @@ public class EmployeeManager {
         return totalSalaryAllEmployees() / employees.size();
     }
 
-//    public String lowSalaryEmployees() {  //Danh sach nhan vien có luong thap hon TB luong
-//        StringBuilder name = new StringBuilder();
-//        for (Employee nv : employees) {
-//            if (nv instanceof FullTimeEmployee) {
-//                if (((FullTimeEmployee) nv).fullTimePractice() < averageSalary()) {
-//                    name.append(nv.getFullName()).append(((FullTimeEmployee) nv).fullTimePractice());
-//                }
-//            }
-//        }
-//        return name.toString();
-//    }
-    public String lowSalaryEmployees() {
+    public String lowSalaryEmployees() { //Danh sach nhan vien có luong thap hon TB luong
         StringBuilder name = new StringBuilder();
         for (Employee employee : employees) {
             if (employee instanceof FullTimeEmployee) {
                 if (((FullTimeEmployee) employee).fullTimePractice() < averageSalary()) {
                     name.append("Nhân viên:").append(employee.getFullName()).append("\n").append("Lương: ").
-                            append(((FullTimeEmployee) employee).fullTimePractice()).append("\n");
+                            append(((FullTimeEmployee) employee).fullTimePractice()).append("\n").;
                 }
             }
         } return name.toString();
