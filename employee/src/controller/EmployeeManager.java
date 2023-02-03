@@ -99,7 +99,7 @@ public class EmployeeManager {
             if (employee instanceof FullTimeEmployee) {
                 if (((FullTimeEmployee) employee).fullTimePractice() < averageSalary()) {
                     name.append("Nhân viên:").append(employee.getFullName()).append("\n").append("Lương: ").
-                            append(((FullTimeEmployee) employee).fullTimePractice()).append("\n").;
+                            append(((FullTimeEmployee) employee).fullTimePractice()).append("\n");
                 }
             }
         } return name.toString();
