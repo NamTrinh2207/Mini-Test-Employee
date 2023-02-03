@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 public class FullTimeEmployee extends Employee implements Comparable<FullTimeEmployee> {
     private double bonus = 0;
@@ -8,7 +8,7 @@ public class FullTimeEmployee extends Employee implements Comparable<FullTimeEmp
     public FullTimeEmployee() {
     }
 
-    public FullTimeEmployee(int id, String fullName, int age, String phone, String email, double bonus, double fine, double hardSalary) {
+    public FullTimeEmployee(String id, String fullName, int age, String phone, String email, double bonus, double fine, double hardSalary) {
         super(id, fullName, age, phone, email);
         this.bonus = bonus;
         this.fine = fine;
@@ -48,7 +48,7 @@ public class FullTimeEmployee extends Employee implements Comparable<FullTimeEmp
         return "Nhân viên Fulltime:" +
                 " Mã nhân viên=" + getId() +
                 ", Họ và tên=" + getFullName() +
-                ", tuổi=" + getTuoi() +
+                ", tuổi=" + getAge() +
                 ", SĐT=" + getPhone() +
                 ", email=" + getEmail() +
                 ", Tiền thưởng=" + bonus +

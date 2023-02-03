@@ -1,54 +1,106 @@
 package views;
 
+import model.Employee;
+import model.FullTimeEmployee;
+import model.PartTimeEmployee;
 import controller.EmployeeManager;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Display {
+    public static List<Employee> employees = new ArrayList<>();
+    public static EmployeeManager employee = new EmployeeManager(employees);
+    public static Scanner input = new Scanner(System.in);
+    public static int checkInput;
+
     public static void main(String[] args) {
-        EmployeeManager nhanVien = new EmployeeManager();
-        Scanner input = new Scanner(System.in);
-        int checkInput;
+
         do {
             System.out.println("-----------------------------------Menu-------------------------------------");
             System.out.println(
-                    "1. Danh sách nhân viên công ty\n" +
-                    "2. Tổng lương của tất cả nhân viên\n" +
-                    "3. Trung bình lương thực lĩnh của tất cả nhân viên\n" +
-                    "4. Nhân viên full time có mức lương thấp hơn so với mức lương trung bình của cả công ty\n" +
-                    "5. Tổng lương của nhân viên làm part time\n" +
-                    "6. Danh sách nhân viên full time có mức lương tăng dần\n" +
-                    "0. thoát chương trình");
+                    """
+                            1. Thêm nhân viên mới
+                            2. Sửa thông tin nhân viên
+                            3. Xóa thông tin nhân viên
+                            4. Danh sách nhân viên công ty
+                            5. Tổng lương của tất cả nhân viên
+                            6. Trung bình lương thực lĩnh của tất cả nhân viên
+                            7. Danh sách nhân viên full time có mức lương thấp hơn so với mức lương trung bình của cả công ty
+                            8. Tổng lương của nhân viên làm part time
+                            9. Danh sách nhân viên full time có mức lương tăng dần
+                            0. thoát chương trình""");
             System.out.print("Mời bạn chọn...");
             checkInput = Integer.parseInt(input.nextLine());
-            switch (checkInput){
-                case 1 -> {
-                    System.out.println("Danh sách nhân viên công ty: ");
-                    System.out.println(nhanVien.employees);
-                }
-                case 2 -> {
-                    System.out.println("Tổng lương của tất cả nhân viên: ");
-                    System.out.println(nhanVien.totalSalaryAllEmployees());
-                }
-                case 3 -> {
-                    System.out.println("Trung bình lương thực lĩnh của tất cả nhân viên: ");
-                    System.out.println(nhanVien.averageSalary());
-                }
+            switch (checkInput) {
+                case 1 -> employee.addNewEmployee(addNewEmployee());
+                case 2 -> employee.editEmployee(input);
+                case 3 -> employee.deleteByEmploy();
                 case 4 -> {
-                    System.out.println("Nhân viên FullTime lương thấp so với trùng bình lương cả công ty: ");
-                    nhanVien.lowSalaryEmployees();
+                    System.out.println("Danh sách nhân viên công ty");
+                    employee.displayEmployees();
                 }
-                case 5 -> {
-                    System.out.println("Tổng lương của nhân viên làm part time: ");
-                    nhanVien.totalSalaryPartTime();
-                }
-                case 6 -> {
-                    System.out.println("Danh sách nhân viên full time có mức lương tăng dần: ");
-                    nhanVien.sortFullTimeEmployee();
-                }
+                case 5 -> System.out.println("Tổng lương của tất cả nhân viên :" + employee.totalSalaryAllEmployees());
+                case 6 ->
+                        System.out.println("Trung bình lương thực lĩnh của tất cả nhân viên :" + employee.averageSalary());
+                case 7 ->
+                        System.out.println("Danh sách nhân viên full time có mức lương thấp hơn so với mức lương trung bình\n: " + employee.lowSalaryEmployees());
+                case 8 ->
+                        System.out.println("Tổng lương của nhân viên làm part time: " + employee.totalSalaryPartTime());
+                case 9 ->
+                        System.out.println("Danh sách nhân viên full time có mức lương tăng dần: " + employee.sortFullTimeEmployee());
                 case 0 -> System.exit(checkInput);
-                default -> System.out.println("Vui lòng nhập lại !");
+                default -> System.out.println("Nhập sai dữ liệu!");
             }
-        }while (true);
+        } while (true);
+    }
+
+    public static Employee addNewEmployee() {
+        System.out.println("""
+                Bạn muốn thêm nhân viên :
+                1. nhân viên full time
+                2. nhân viên part time
+                0. thoát""");
+        checkInput = Integer.parseInt(input.nextLine());
+        switch (checkInput) {
+            case 1 -> {
+                System.out.print("Mời bạn nhập mã nhân viên  : ");
+                String id = input.nextLine();
+                System.out.print("Mời bạn nhập tên nhân viên : ");
+                String name = input.nextLine();
+                System.out.print("Mời bạn nhập tuổi nhân viên : ");
+                int age = Integer.parseInt(input.nextLine());
+                System.out.print("Mời bạn nhập sđt nhân viên : ");
+                String phone = input.nextLine();
+                System.out.print("Mời bạn nhập email nhân viên : ");
+                String email = input.nextLine();
+                System.out.print("Mời bạn nhập tiền thưởng nhân viên : ");
+                double bonus = Integer.parseInt(input.nextLine());
+                System.out.print("Mời bạn nhập tiền phạt nhân viên : ");
+                double fine = Integer.parseInt(input.nextLine());
+                System.out.print("Mời bạn nhập lương cơ bản của nhân viên : ");
+                double hardSalary = Integer.parseInt(input.nextLine());
+                return new FullTimeEmployee(id, name, age, phone, email, bonus, fine, hardSalary);
+            }
+            case 2 -> {
+                System.out.print("Mời bạn nhập mã nhân viên  : ");
+                String id = input.nextLine();
+                System.out.print("Mời bạn nhập tên nhân viên : ");
+                String name = input.nextLine();
+                System.out.print("Mời bạn nhập tuổi nhân viên : ");
+                int age = Integer.parseInt(input.nextLine());
+                System.out.print("Mời bạn nhập sđt nhân viên : ");
+                String phone = input.nextLine();
+                System.out.print("Mời bạn nhập email nhân viên : ");
+                String email = input.nextLine();
+                System.out.print("Mời bạn nhập số giờ làm việc nhân viên : ");
+                double workTime = Integer.parseInt(input.nextLine());
+                return new PartTimeEmployee(id, name, age, phone, email, workTime);
+            }
+            case 0 -> System.exit(checkInput);
+            default -> System.out.println("Nhập dữ liệu không đúng !!");
+        }
+        return null;
     }
 }

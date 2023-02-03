@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 public class PartTimeEmployee extends Employee {
     private double workTime;
@@ -6,8 +6,8 @@ public class PartTimeEmployee extends Employee {
     public PartTimeEmployee() {
     }
 
-    public PartTimeEmployee(int maNhanVien, String hoVaTen, int tuoi, String SDT, String email, double workTime) {
-        super(maNhanVien, hoVaTen, tuoi, SDT, email);
+    public PartTimeEmployee(String id, String fullName, int age, String phone, String email, double workTime) {
+        super(id, fullName, age, phone, email);
         this.workTime = workTime;
     }
 
@@ -28,7 +28,7 @@ public class PartTimeEmployee extends Employee {
         return "Nhân viên Parttime:" +
                 "  Mã nhân viên=" + getId() +
                 ", Họ và tên=" + getFullName() +
-                ", Tuổi=" + getTuoi() +
+                ", Tuổi=" + getAge() +
                 ", SĐT=" + getPhone() +
                 ", email=" + getEmail() +
                 ", Giờ làm việc=" + workTime + "\n";

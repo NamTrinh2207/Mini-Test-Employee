@@ -1,22 +1,79 @@
 package controller;
 
+import model.Employee;
+import model.FullTimeEmployee;
+import model.PartTimeEmployee;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
 public class EmployeeManager {
-    public ArrayList<Employee> employees;
+    private final List<Employee> employees;
 
+    //Data saving----------------------------------------------------------------------
     public EmployeeManager() {
         employees = new ArrayList<>();
-        employees.add(new FullTimeEmployee(1, "trịnh văn nam", 26, "0369324191", "trinhnam91@gmail.com", 100, 10, 5000000));
-        employees.add(new FullTimeEmployee(2, "trịnh văn bắc", 26, "0369324192", "trinhnam92@gmail.com", 100, 10, 4000000));
-        employees.add(new FullTimeEmployee(3, "trịnh văn đông", 26, "0369324193", "trinhnam93@gmail.com", 100, 10, 500000));
-        employees.add(new PartTimeEmployee(4, "trịnh văn tây", 26, "0369324194", "trinhnam94@gmail.com", 20));
-        employees.add(new PartTimeEmployee(5, "trịnh văn trung", 26, "0369324195", "trinhnam95@gmail.com", 3));
-        employees.add(new PartTimeEmployee(6, "trịnh văn quốc", 26, "0369324197", "trinhnam96@gmail.com", 4));
     }
 
-    public double totalSalaryAllEmployees() {
+    public EmployeeManager(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    //CRUD Employee--------------------------------------------------------------------
+    public void addNewEmployee(Employee employee) {  // Thêm
+        employees.add(employee);
+    }
+
+    public void displayEmployees() {  //Hiển thị danh sách
+        for (Employee employee : employees) {
+            System.out.println(employee);
+        }
+    }
+
+    public void deleteByEmploy() {  // xóa
+        if (employees.size()==0){
+            System.out.println("Không có dữ liệu để xóa! ");
+        }else {
+            employees.remove(employees.size() - 1);
+        }
+    }
+
+    public void editEmployee(Scanner input) { //sửa thông tin nhân viên
+        String newId;String newName;int newAge;String newPhone;String newEmail;
+        double newBonus;double newFine;double newHardSalary;
+        System.out.println("Mời bạn nhập vào id nhân viên: ");
+        String id = input.nextLine();
+        for (Employee e : employees) {
+            if (id.equals(e.getId())) {
+                if (e instanceof FullTimeEmployee) {
+                    System.out.print("Mời bạn nhập mã nhân viên  : "); newId = input.nextLine();
+                    System.out.print("Mời bạn nhập tên nhân viên : "); newName = input.nextLine();
+                    System.out.print("Mời bạn nhập tuổi nhân viên : "); newAge = Integer.parseInt(input.nextLine());
+                    System.out.print("Mời bạn nhập sđt nhân viên : "); newPhone = input.nextLine();
+                    System.out.print("Mời bạn nhập email nhân viên : "); newEmail = input.nextLine();
+                    System.out.print("Mời bạn nhập tiền thưởng nhân viên : "); newBonus = Integer.parseInt(input.nextLine());
+                    System.out.print("Mời bạn nhập tiền phạt nhân viên : "); newFine = Integer.parseInt(input.nextLine());
+                    System.out.print("Mời bạn nhập lương cơ bản của nhân viên : "); newHardSalary = Integer.parseInt(input.nextLine());
+                    e.setId(newId);e.setFullName(newName);e.setAge(newAge);e.setPhone(newPhone);e.setEmail(newEmail);
+                    ((FullTimeEmployee) e).setBonus(newBonus);((FullTimeEmployee) e).setFine(newFine);
+                    ((FullTimeEmployee) e).setHardSalary(newHardSalary);
+                } else if (e instanceof PartTimeEmployee) {
+                    System.out.print("Mời bạn nhập mã nhân viên  : "); newId = input.nextLine();
+                    System.out.print("Mời bạn nhập tên nhân viên : "); newName = input.nextLine();
+                    System.out.print("Mời bạn nhập tuổi nhân viên : "); newAge = Integer.parseInt(input.nextLine());
+                    System.out.print("Mời bạn nhập sđt nhân viên : "); newPhone = input.nextLine();
+                    System.out.print("Mời bạn nhập email nhân viên : "); newEmail = input.nextLine();
+                    System.out.print("Mời bạn nhập số giờ làm việc : ");double newWorkTime = Integer.parseInt(input.nextLine());
+                    e.setId(newId);e.setFullName(newName);e.setAge(newAge);e.setPhone(newPhone);e.setEmail(newEmail);
+                    ((PartTimeEmployee) e).setWorkTime(newWorkTime);
+                }
+            }
+        }
+    }
+
+    public double totalSalaryAllEmployees() { // Tổng lương của tất cả nhân viên trong công ty
         double totalSalary;
         double FullTimeSalary = 0;
         double PartTimeSalary = 0;
@@ -32,33 +89,44 @@ public class EmployeeManager {
         return totalSalary;
     }
 
-    public double averageSalary() {
+    public double averageSalary() { // Trung bình lương của tất cả nhân viên trong công ty
         return totalSalaryAllEmployees() / employees.size();
     }
 
-    public void lowSalaryEmployees() {
-        double lowSalaryEmployees;
-        for (Employee nv : employees) {
-            if (nv instanceof FullTimeEmployee) {
-                if (((FullTimeEmployee) nv).fullTimePractice() < averageSalary()) {
-                    lowSalaryEmployees = ((FullTimeEmployee) nv).fullTimePractice();
-                    System.out.println(nv.getFullName() + ", Tiền lương: " + lowSalaryEmployees);
+//    public String lowSalaryEmployees() {  //Danh sach nhan vien có luong thap hon TB luong
+//        StringBuilder name = new StringBuilder();
+//        for (Employee nv : employees) {
+//            if (nv instanceof FullTimeEmployee) {
+//                if (((FullTimeEmployee) nv).fullTimePractice() < averageSalary()) {
+//                    name.append(nv.getFullName()).append(((FullTimeEmployee) nv).fullTimePractice());
+//                }
+//            }
+//        }
+//        return name.toString();
+//    }
+    public String lowSalaryEmployees() {
+        StringBuilder name = new StringBuilder();
+        for (Employee employee : employees) {
+            if (employee instanceof FullTimeEmployee) {
+                if (((FullTimeEmployee) employee).fullTimePractice() < averageSalary()) {
+                    name.append("Nhân viên:").append(employee.getFullName()).append("\n").append("Lương: ").
+                            append(((FullTimeEmployee) employee).fullTimePractice()).append("\n");
                 }
             }
-        }
+        } return name.toString();
     }
 
-    public void totalSalaryPartTime() {
+    public double totalSalaryPartTime() {  // Tổng lương của nhân viên part time
         double totalSalaryPartTime = 0;
         for (Employee nv : employees) {
             if (nv instanceof PartTimeEmployee) {
                 totalSalaryPartTime += ((PartTimeEmployee) nv).partTimePractice();
             }
         }
-        System.out.println("Lương phải trả cho nhân viên Part Time là: " + totalSalaryPartTime);
+        return totalSalaryPartTime;
     }
 
-    public void sortFullTimeEmployee() {
+    public ArrayList<FullTimeEmployee> sortFullTimeEmployee() { //Sắp xếp lương nhân viên full time tăng dần
         ArrayList<FullTimeEmployee> fullTimeEmployees = new ArrayList<>();
         for (Employee nv : employees
         ) {
@@ -67,6 +135,6 @@ public class EmployeeManager {
             }
         }
         Collections.sort(fullTimeEmployees);
-        System.out.println(fullTimeEmployees);
+        return fullTimeEmployees;
     }
 }

@@ -1,7 +1,7 @@
-package controller;
+package model;
 
 public class Employee {
-    private int id;
+    private String id;
     private String fullName;
     private int age;
     private String phone;
@@ -10,7 +10,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int id, String fullName, int age, String phone, String email) {
+    public Employee(String id, String fullName, int age, String phone, String email) {
         this.id = id;
         this.fullName = fullName;
         this.age = age;
@@ -18,11 +18,11 @@ public class Employee {
         this.email = email;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -34,12 +34,12 @@ public class Employee {
         this.fullName = fullName;
     }
 
-    public int getTuoi() {
+    public int getAge() {
         return age;
     }
 
-    public void setTuoi(int tuoi) {
-        this.age = tuoi;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getPhone() {
