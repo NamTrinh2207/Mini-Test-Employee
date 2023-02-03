@@ -1,8 +1,12 @@
+package views;
+
+import controller.EmployeeManager;
+
 import java.util.Scanner;
 
-public class Main {
+public class Display {
     public static void main(String[] args) {
-        NhanVienManager nhanVien = new NhanVienManager();
+        EmployeeManager nhanVien = new EmployeeManager();
         Scanner input = new Scanner(System.in);
         int checkInput;
         do {
@@ -20,27 +24,27 @@ public class Main {
             switch (checkInput){
                 case 1 -> {
                     System.out.println("Danh sách nhân viên công ty: ");
-                    System.out.println(nhanVien.nhanViens);
+                    System.out.println(nhanVien.employees);
                 }
                 case 2 -> {
                     System.out.println("Tổng lương của tất cả nhân viên: ");
-                    System.out.println(nhanVien.tongLuongTatCaNv());
+                    System.out.println(nhanVien.totalSalaryAllEmployees());
                 }
                 case 3 -> {
                     System.out.println("Trung bình lương thực lĩnh của tất cả nhân viên: ");
-                    System.out.println(nhanVien.trungBinhLuong());
+                    System.out.println(nhanVien.averageSalary());
                 }
                 case 4 -> {
                     System.out.println("Nhân viên FullTime lương thấp so với trùng bình lương cả công ty: ");
-                    nhanVien.nvLuongThap();
+                    nhanVien.lowSalaryEmployees();
                 }
                 case 5 -> {
                     System.out.println("Tổng lương của nhân viên làm part time: ");
-                    nhanVien.tongLuongPartTime();
+                    nhanVien.totalSalaryPartTime();
                 }
                 case 6 -> {
                     System.out.println("Danh sách nhân viên full time có mức lương tăng dần: ");
-                    nhanVien.sapXep();
+                    nhanVien.sortFullTimeEmployee();
                 }
                 case 0 -> System.exit(checkInput);
                 default -> System.out.println("Vui lòng nhập lại !");
